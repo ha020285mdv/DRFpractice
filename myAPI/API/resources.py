@@ -12,8 +12,7 @@ class WriterViewSet(ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        if self.request.method == 'GET':
-            book_name = self.request.query_params.get('book_name')
+        book_name = self.request.query_params.get('book_name')
         if book_name:
             queryset = queryset.filter(books__title__icontains=book_name).distinct()
         else:
@@ -37,8 +36,7 @@ class BookViewSet(ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        if self.request.method == 'GET':
-            author_age = self.request.query_params.get('author_age')
+        author_age = self.request.query_params.get('author_age')
         queryset = queryset.filter(writer__age__gte=int(author_age)) if author_age else queryset.all()
         return queryset
 
